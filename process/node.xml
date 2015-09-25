@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taskDefinition id="msproject_project_task_create" name="MSProject Project Task Create" schema_version="1.0" version="1">
+    <author>support@kineticdata.com</author>
+    <description>This handler creates a task for a project.</description>
+    <helpurl>http://ktc.kineticdata.com/handler/msproject_project_completion_status/1</helpurl>
+    <visible>true</visible>
+    <deferrable>false</deferrable>
+    <parameters>
+        <parameter id="project_id" label="Project Id" required="true"
+            tooltip="The project id of the project that you want to create a task under."/>
+        <parameter id="name" label="Task Name" required="true"
+            tooltip="The name of the task that you want to create."/>
+        <parameter id="notes" label="Task Note" required="false"
+            tooltip="The note that you want to add to the created task."/>
+    </parameters>
+    <handler name="msproject_project_task_create" version="1">
+        <infos>
+            <info name="username">&lt;%= @info['username'] %&gt;</info>
+            <info name="password">&lt;%= @info['password'] %&gt;</info>
+            <info name="integrated_authentication">&lt;%= @info['integrated_authentication'] %&gt;</info>
+            <info name="ms_project_location">&lt;%= @info['ms_project_location'] %&gt;</info>
+            <info name="enable_debug_logging">&lt;%= @info['enable_debug_logging'] %&gt;</info>
+        </infos>
+        <parameters>
+            <parameter name="project_id">&lt;%= @parameters['project_id'] %&gt;</parameter>
+            <parameter name="name">&lt;%= @parameters['name'] %&gt;</parameter>
+            <parameter name="notes">&lt;%= @parameters['notes'] %&gt;</parameter>
+        </parameters>
+    </handler>
+    <results format="xml">
+        <result name="task_id"/>
+    </results>
+</taskDefinition>
