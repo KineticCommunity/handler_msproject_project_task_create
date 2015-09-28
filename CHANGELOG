@@ -1,2 +1,5 @@
 MSProject_Project_Task_Create_V1 (2015-09-20)
 * Initial version.  See README for details.
+
+MSProject_Project_Task_Create_V2 (2015-09-28)
+* Authentication moved from C# to Ruby and more verbose error logging.

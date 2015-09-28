@@ -1,5 +1,5 @@
 == MSProject Project Task Create
-  This handler creates a .
+  This handler creates a task under a current project.
 
 === Parameters
 [Project Id]
@@ -27,8 +27,3 @@ authentication for future calls. That value is then used along with the Project
 Id, Task Name, and Task Note (if included) parameters to make a POST request to 
 the API to create the Task. Any errors that occur during this process will be 
 caught and re-raised by the handler.
-
-NOTE: The Microsoft Project handlers uses ADFS authentication 
-(ADFS docs [https://msdn.microsoft.com/en-us/library/bb897402.aspx]) and requires a 
-minimum of .NET 4.0 to be installed on the server that Kinetic Task is running 
-on. If you have any questions about this setup, contact support@kineticdata.com.
