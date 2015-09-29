@@ -4,22 +4,22 @@
 
 #Parameters
 
-[Project Id]
-  The project id of the project that you want to create a task under.
-[Task Name]
-  The name of the task that you want to create.
-[Task Note]
-  The note that you want to add to the created task.
+[Project Id]  - The project id of the project that you want to create a task under.
+
+[Task Name]   - The name of the task that you want to create.
+
+[Task Note]   - The note that you want to add to the created task.
 
 #Results
 
-[Task Id]
-  The id of the successfully created task.
+[Task Id] - The id of the successfully created task.
 
 #Sample Configuration
 
 Project Id:                   db521c56-44ab-422d-9abd-29d8d359043a
+
 Task Name:                    Testing Task
+
 Task Note:                    This is a test note
 
 #Detailed Description
