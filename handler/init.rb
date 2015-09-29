@@ -3,7 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), 'dependencies'))
 # Require the Office 365 Authentication file
 require File.expand_path(File.join(File.dirname(__FILE__), 'o365_authentication'))
 
-class MsprojectProjectTaskCreateV2
+class MsprojectProjectTaskCreateV1
   def initialize(input)
     # Set the input document attribute
     @input_document = REXML::Document.new(input)
@@ -44,7 +44,7 @@ class MsprojectProjectTaskCreateV2
     begin
       results = task_endpoint.post update_params.to_json
     rescue RestClient::Exception => error
-      handle_error(error)
+      raise StandardError, handle_error(error)[:message]
     end
 
     puts "Parsing the result to get the task id" if @enable_debug_logging
@@ -64,15 +64,22 @@ class MsprojectProjectTaskCreateV2
 
   def handle_error(error)
     error_message = error.inspect
-
     code = nil
     value = nil
+    needs_retry = false
     begin
       json = JSON.parse(error.response.to_s)
       if !json["odata.error"].nil?
         if !json["odata.error"]["message"].nil? && !json["odata.error"]["message"]["value"].nil?
           error_message = json["odata.error"]["message"]["value"].to_s
           value = json["odata.error"]["message"]["value"]
+        end
+
+        # If a project is equal to the following codes, it the retry variable 
+        # will be set to true because they are non-fatal 403's
+        if json["odata.error"]["code"] == "1030, Microsoft.ProjectServer.PJClientCallableException" || # ProjectWriteLock
+          json["odata.error"]["code"] == "10103, Microsoft.ProjectServer.PJClientCallableException" # Checked out in other session
+          needs_retry = true
         end
 
         if !json["odata.error"]["code"].nil?
@@ -93,7 +100,8 @@ class MsprojectProjectTaskCreateV2
     if code != nil && value != nil
       error_message = "Error Name: #{value}, Code: #{code}. Too see more details about this error, see Project Server 2013 error codes (https://msdn.microsoft.com/en-us/library/office/ms508961.aspx)."
     end
-    raise StandardError, error_message
+
+    {:retry => needs_retry, :message => error_message}
   end
 
   def set_form_digest(proj_resource)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<taskDefinition id="msproject_project_task_create" name="MSProject Project Task Create" schema_version="1.0" version="2">
+<taskDefinition id="msproject_project_task_create" name="MSProject Project Task Create" schema_version="1.0" version="1">
     <author>support@kineticdata.com</author>
     <description>This handler creates a task for a project.</description>
     <helpurl>http://ktc.kineticdata.com/handler/msproject_project_completion_status/1</helpurl>
@@ -13,7 +13,7 @@
         <parameter id="notes" label="Task Note" required="false"
             tooltip="The note that you want to add to the created task."/>
     </parameters>
-    <handler name="msproject_project_task_create" version="2">
+    <handler name="msproject_project_task_create" version="1">
         <infos>
             <info name="username">&lt;%= @info['username'] %&gt;</info>
             <info name="password">&lt;%= @info['password'] %&gt;</info>
